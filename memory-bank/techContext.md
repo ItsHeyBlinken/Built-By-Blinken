@@ -16,7 +16,7 @@
 
 | Path | Purpose |
 |------|---------|
-| `index.html`, `templates.html`, `pricing.html`, `athlete-recruiting.html` | Main marketing pages |
+| `index.html`, `templates.html`, `pricing.html` | Main marketing pages (deploy branch) |
 | `style.css` | Home + shared patterns; `style1.css` templates; `pricing.css` pricing |
 | `src/tailwind-input.css` | `@tailwind` directives for CLI |
 | `tailwind-built.css` | Generated; commit for static hosts without build |
@@ -36,5 +36,6 @@
 
 ## Deployment notes
 
-- **Pipeline:** GitHub repo → **Coolify** on the VPS fetches and serves static files. GitHub Pages is **not** part of the stack.
-- **Tailwind:** either commit `tailwind-built.css` or configure Coolify to run `npm ci && npm run build:css` before publishing the static root (same as any static host without a build step).
+- **Pipeline:** GitHub repo → **Coolify** on the VPS fetches and serves static files via **nginx**. GitHub Pages is **not** part of the stack.
+- **Tailwind:** commit `tailwind-built.css` on the deploy branch. Tooling (`package.json`, `tailwind.config.js`, `src/`) lives on `cursor/archive-internal-working-files-8ce9` so it is not publicly served.
+- **Internal files:** do not place Memory Bank, PRDs, or archived demos on the Coolify-tracked branch; use the archive branch (see `ARCHIVE_README.md`).

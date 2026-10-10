@@ -17,10 +17,10 @@
 
 ## Scope (in)
 
-- Main site pages: `index.html`, `templates.html`, `pricing.html` with shared nav/footer patterns. `athlete-recruiting.html` and `Recruiting-Template/` are archived (unlinked, noindex).
+- Main site pages: `index.html`, `templates.html`, `pricing.html` with shared nav/footer patterns. `athlete-recruiting.html` and `Recruiting-Template/` are archived on branch `cursor/archive-internal-working-files-8ce9` (not on the deploy branch).
 - Custom CSS (`style.css`, `style1.css`, `pricing.css`) plus **built** Tailwind utilities (`tailwind-built.css`).
-- Optional `Site Templates/` demos — separate HTML showcases; not necessarily part of the same Tailwind build unless added to `tailwind.config.js` `content`.
-- Athlete profile fulfillment uses a separate source-only React scaffold outside this repository; the public sample demo is the scrubbed `Recruiting-Template/` folder (fictional athlete data only).
+- Optional `Site Templates/` demos — separate HTML showcases linked from Templates/Home.
+- Athlete profile materials (if needed again) are on the archive branch or the sibling scaffold outside this repository.
 
 ## Scope (out)
 
@@ -30,7 +30,7 @@
 ## Hosting
 
 - **GitHub:** version control and where Coolify reads the repo from.
-- **Coolify (VPS):** configured to fetch project files from GitHub and serve them; **GitHub Pages is not used** for this site.
+- **Coolify (VPS):** configured to fetch project files from GitHub and serve them via nginx; **GitHub Pages is not used** for this site. The tracked branch’s document root is public — keep internals on the archive branch.
 
 ## Canonical domain
 

@@ -7,7 +7,7 @@
 - Static HTML + hand-authored CSS.
 - **Tailwind CSS v3** compiled to `tailwind-built.css` (not the CDN in production).
 - Build: `npm run build:css` from repo root; input `src/tailwind-input.css`, output `tailwind-built.css`.
-- `tailwind.config.js` scans `./index.html`, `./templates.html`, `./pricing.html`, `./athlete-recruiting.html` for class names.
+- `tailwind.config.js` (on this archive branch) scans main HTML pages for class names; restore from archive before rebuilding CSS on the deploy branch.
 - **Display serif:** Fraunces (Google Fonts) used for hero / section headings via the `.font-display` utility (extended in `tailwind.config.js` `fontFamily.display`); Inter remains the default body / sans family.
 
 ## Agency design system (added 2026-05-05)
@@ -28,19 +28,20 @@ A shared set of tokens and patterns lives in `style.css` so all four main pages 
 - `.compare-table` family — pricing comparison table (lives in `#website-design` section on `pricing.html`).
 - `.filter-btn` (with `.filter-count`) and `.template-card-chip` — segmented filter bar + always-visible category chip on `templates.html`.
 
-`templates.html` was switched from `style1.css` to `style.css` as its primary stylesheet so the shared tokens apply (`style1.css` is no longer linked by any main page; left in repo for reference but should be considered deprecated).
+`templates.html` uses `style.css` as its primary stylesheet. Deprecated `style1.css` lives only on the archive branch.
 
 ## Deployment
 
 - **GitHub:** repository is the **source of truth** for files (push commits here).
-- **Coolify (VPS):** pulls from the GitHub repo and serves the site — **not GitHub Pages.** Flow: push to GitHub → Coolify fetches/builds or deploys as configured.
+- **Coolify (VPS):** pulls from the GitHub repo and serves the site — **not GitHub Pages.** Flow: push to GitHub → Coolify fetches/builds or deploys as configured. Live responses are **nginx** (so root `.htaccess` is not applied and was publicly downloadable until removed).
+- **Deploy hygiene:** Coolify serves the repo document root. Internal notes, Memory Bank, PRDs, npm/Tailwind tooling, and archived athlete demo files must stay on `cursor/archive-internal-working-files-8ce9` (or another non-deployed ref), not on the branch Coolify tracks.
 - Deploys verified with **no Tailwind CDN console warnings** in the browser.
+- Tailwind rebuild: restore `package.json`, `tailwind.config.js`, and `src/tailwind-input.css` from the archive branch into a local worktree, run `npm run build:css`, commit `tailwind-built.css` on the deploy branch.
 
-## Athlete recruiting — archived (2026-09-10)
+## Athlete recruiting — archived off deploy branch (2026-10-10)
 
 - Not part of the public agency offer. Do not link it from Home, Templates, or Pricing.
-- Files kept in repo: `athlete-recruiting.html` (`noindex, nofollow`) and `Recruiting-Template/` (already `noindex`).
-- Removed from `sitemap.xml`. `robots.txt` disallows `/athlete-recruiting.html` and `/Recruiting-Template/`.
+- Files live only on branch `cursor/archive-internal-working-files-8ce9` (`athlete-recruiting.html`, `Recruiting-Template/`), not on the Coolify-deployed branch.
 - Sibling scaffold `../Athlete-Recruiting-Profile-Template/` remains outside this repo and is unused.
 
 ## Conventions worth preserving
@@ -52,7 +53,7 @@ A shared set of tokens and patterns lives in `style.css` so all four main pages 
 
 ## Open / watch
 
-- Athlete page layout: `#athlete-process` and `#athlete-pricing` have scoped spacing overrides in `style.css` so the popular-card `scale()` treatment does not cover the plan disclaimer. Prefer keeping those overrides page-scoped rather than changing global `.pricing-popular` in `pricing.css`.
+- Athlete page CSS leftovers may still exist in `style.css` on the deploy branch; the HTML was moved to the archive branch.
 - **`pricing.html` (2026-09-10 pivot):** Primary and only offer is **Website Starter — $250 one-time setup + $50/month**. The monthly fee covers hosting, SSL, maintenance, technical support, and small content updates (hours, phone, service copy, a few images). New pages, features, redesigns, e-commerce, and ongoing SEO campaigns are quoted separately. Launch / Growth / Signature, Site Care, activation bundles, commerce packages, and Athlete profiles were removed from the public site. Primary CTA is **Let's Build Your Site** → `mailto:services@bytesbyblinken.com`. Keep visible copy and JSON-LD aligned when this offer changes.
 - After HTML edits that add or change Tailwind classes, run **`npm run build:css`** and commit `tailwind-built.css` if not using a CI build step. The 2026-07-14 athlete launch intentionally deferred this manual build, so generated CSS still needs regeneration before release.
 - Adding new top-level HTML pages that use Tailwind requires adding them to `content` in `tailwind.config.js` and rebuilding.

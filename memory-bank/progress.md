@@ -4,6 +4,8 @@
 
 ## Session log
 
+- **2026-10-10 — Unpublish internal/working files from Coolify deploy:** Audit found many non-site paths returning HTTP 200 on builtbyblinken.com (nginx via Coolify, not GitHub Pages). Preserved full pre-removal tree on branch `cursor/archive-internal-working-files-8ce9` (see `ARCHIVE_README.md`). Deploy branch PR removes notes/PRDs, `memory-bank/`, athlete recruiting page + `Recruiting-Template/`, npm/Tailwind tooling, `.htaccess`, `.vscode/`, deprecated `style1.css`, and `CNAME` from the served root. Site pages/assets (`index.html`, `templates.html`, `pricing.html`, CSS, images, `Site Templates/`, sitemap/robots/google verify) left untouched. No credentials found in removed files.
+
 - **2026-09-10 — Fix Recent work header styling:** `main { text-align: center }` was centering the split Recent work heading (title stacked as one run-on line, CTA stranded on the right). Left-aligned `#recent-work`, widened the intro to `max-w-3xl`, and added `word-spacing` on `.font-display` / `.eyebrow` so Fraunces headings and tracked labels keep visible word gaps.
 
 - **2026-09-10 — Remove retail/e-commerce templates from the public catalog:** Dropped Vinyl Vault and ShopSmart from `templates.html` (section, filter, counts 18→16 / 4→3 categories). Updated templates meta/JSON-LD. Homepage: replaced Recent work Vinyl Vault card with GreenThumb landscaping, removed E-commerce industry pill, stats 18+→16+. Demo files stay under `Site Templates/` and are not deleted.
